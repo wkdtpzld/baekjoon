@@ -27,9 +27,11 @@ public class bj2178_미로찾기 {
                 visited[i][j] = 0;
             }
         }
+        sc.close();
         visited[0][0] = 1;
         BFS(0, 0);
         System.out.println(arr[n - 1][m - 1]);
+        
     }
 
     public static void BFS(int x, int y) {
@@ -67,3 +69,4 @@ class Dot {
         this.y = y;
     }
 }
+
