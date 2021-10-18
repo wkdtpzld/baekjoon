@@ -25,4 +25,3 @@ def dfs():
         check[i] = 0
 
 dfs()
-print(dic)
