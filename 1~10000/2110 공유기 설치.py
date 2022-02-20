@@ -1,29 +1,36 @@
-a,b=map(int,input().split())
-li=[int(input()) for _ in range(a)]
-li.sort()
+import sys
+input = sys.stdin.readline
+n,m = map(int,input().split())
+li = []
+for i in range(n):
+    li.append(int(input()))
 
-def binary_search(array,start,end):
+li.sort()
+answer = 0
+
+def binary_search(start,end,arr):
+    global answer
 
     while start <= end:
-        mid = (start + end ) // 2
-        current = array[0]
+
         cnt = 1
+        mid = (start + end) // 2
+        current = arr[0]
 
-        for i in range(1,len(array)):
-            if array[i] >= current + mid:
+        for i in range(1,n):
+            if arr[i] >= current + mid:
                 cnt += 1
-                current = array[i]
+                current = arr[i]
 
-        if cnt >= b:
-            global answer
-            start = mid + 1
+        if cnt >= m:
             answer = mid
+            start = mid + 1
         else:
             end = mid - 1
 
-answer = 0
-start = 1
-end = li[-1] - li[0]
 
-binary_search(li,start,end)
+start = 0
+end = li[-1] - li[0]
+binary_search(start,end,li)
+
 print(answer)
