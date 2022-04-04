@@ -1,36 +1,24 @@
-bingo = []
-for _ in range(5):
-    bingo.append(list(map(int,input().split())))
+n = int(input())
 
-num=[]
-for __ in range(5):
-    num += (map(int,input().split()))
-check=[0] * 12
-line = 0
-flag = False
-for n in range(25):
-    if flag == True:
-        break
-    for i in range(5):
-        if flag == True:
-            break
-        for j in range(5):
-            if flag == True:
-                break
-            if num[n] == bingo[i][j]:
-                bingo[i][j] = 0
-                check[i] += 1
-                check[j+5] += 1
-                if i == j :
-                    check[10] += 1
-                if i + j == 4:
-                    check[11] += 1
-                for c in range(12):
-                    if check[c] == 5:
-                        check[c] = 0
-                        line += 1
-                        if line == 3:
-                            flag = True
-                            break
-print(n)
+s = []
+op = []
+cnt = 1
+flag = True
 
+
+for i in range(n):
+    num = int(input())
+    while cnt <= num:
+        s.append(cnt)
+        op.append('+')
+        cnt += 1
+    if s[-1] == num:
+        s.pop()
+        op.append('-')
+    else:
+        flag = False
+
+if flag == False:
+    print("NO")
+else:
+    print('\n'.join(op))
