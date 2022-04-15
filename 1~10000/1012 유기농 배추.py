@@ -1,44 +1,50 @@
-#
-# def dfs(x,y):
-#     dx,dy=[-1,1,0,0],[0,0,-1,1]
-#     for i in range(4):
-#         nx,ny=x+dx[i],y+dy[i]
-#         if 0 <= nx < M and 0 <= ny < N:
-#             if matrix[nx][ny] == 1:
-#                 matrix[nx][ny] -= 1
-#                 dfs(nx,ny)
 import sys
 from collections import deque
+sys.setrecursionlimit(10**5)
 
-dx,dy=[-1,1,0,0],[0,0,-1,1]
-def bfs(x,y):
-    q= deque()
-    q.append((x,y))
-    done[x][y] = 1
-    while q:
-        xx,yy=q.popleft()
-        for _ in range(4):
-            nx = xx+dx[_]
-            ny = yy+dy[_]
+TC = int(input())
 
-            if (0<=nx<n) and (0<=ny<m) and done[nx][ny] == -1:
-                if matrix[nx][ny] == 1:
-                    q.append((nx,ny))
-                    done[nx][ny] = 1
-t = int(input())
-for __ in range(t):
+nx = [-1,1,0,0]
+ny = [0,0,-1,1]
+
+def bfs(a,b):
+    global cnt
+    cnt += 1
+
+    board[a][b] = 0
+    queue = deque([])
+
+    queue.append([a,b])
+
+    while queue:
+
+        x,y = queue.popleft()
+
+        for i in range(4):
+            dx = x + nx[i]
+            dy = y + ny[i]
+
+            if 0 <= dx < m and 0 <= dy < n:
+                if board[dx][dy] == 1:
+                    board[dx][dy] = 0
+                    queue.append([dx,dy])
+
+
+for _ in range(TC):
+    n,m,k = map(int,input().split())
+
     cnt = 0
-    n,m,k=map(int,input().split())
-    matrix=[[0]*m for _ in range(n)]
-    done = [[-1]*m for _ in range(n)]
+
+    board = [[0]*(n) for i in range(m)]
 
     for _ in range(k):
-        a,b=map(int,input().split())
-        matrix[a][b] = 1
+        a,b = map(int,input().split())
+        board[b][a] = 1
 
-    for i in range(n):
-        for j in range(m):
-            if matrix[i][j] == 1 and done[i][j] == -1:
+
+    for i in range(m):
+        for j in range(n):
+            if board[i][j] == 1:
                 bfs(i,j)
-                cnt +=1
+
     print(cnt)
